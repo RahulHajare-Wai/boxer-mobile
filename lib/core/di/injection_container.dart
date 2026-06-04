@@ -1,9 +1,9 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../features/auth/data/database/auth_database.dart';
 import '../../features/auth/data/datasources/auth_local_datasource.dart';
 import '../../features/auth/data/datasources/auth_remote_datasource.dart';
+import '../../features/auth/data/repositories/auth_local_repository.dart';
 import '../../features/auth/data/repositories/auth_repository_impl.dart';
 import '../../features/auth/domain/repositories/auth_repository.dart';
 import '../../features/auth/domain/usecases/get_cached_session_usecase.dart';
@@ -21,22 +21,20 @@ Future<void> initDependencies() async {
 
   sl.registerSingleton<SharedPreferences>(sharedPreferences);
 
-  sl.registerSingleton<AuthDatabase>(AuthDatabase());
-
   sl.registerSingleton<AuthRemoteDataSource>(
     AuthRemoteDataSourceImpl(),
   );
   sl.registerSingleton<AuthLocalDataSource>(
-    AuthLocalDataSourceImpl(
-      prefs: sl<SharedPreferences>(),
-      database: sl<AuthDatabase>(),
-    ),
+    AuthLocalDataSourceImpl(sl<SharedPreferences>()),
+  );
+  sl.registerSingleton<AuthLocalRepository>(
+    AuthLocalRepository(localDataSource: sl<AuthLocalDataSource>()),
   );
 
   sl.registerSingleton<AuthRepository>(
     AuthRepositoryImpl(
       remoteDataSource: sl<AuthRemoteDataSource>(),
-      localDataSource: sl<AuthLocalDataSource>(),
+      localRepository: sl<AuthLocalRepository>(),
     ),
   );
 

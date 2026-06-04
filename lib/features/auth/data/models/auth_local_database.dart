@@ -5,13 +5,13 @@ import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
-import 'tables/auth_user_table.dart';
+import 'auth_user_table.dart';
 
-part 'auth_database.g.dart';
+part 'auth_local_database.g.dart';
 
 @DriftDatabase(tables: [AuthUsers])
-class AuthDatabase extends _$AuthDatabase {
-  AuthDatabase() : super(_openConnection());
+class AuthLocalDatabase extends _$AuthLocalDatabase {
+  AuthLocalDatabase() : super(_openConnection());
 
   @override
   int get schemaVersion => 1;
