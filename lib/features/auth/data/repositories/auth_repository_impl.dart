@@ -13,22 +13,33 @@ class AuthRepositoryImpl implements AuthRepository {
   final AuthLocalDataSource localDataSource;
 
   @override
-  Future<AuthResponse> login({required String email, required String password}) async {
-    final response = await remoteDataSource.login(email: email, password: password);
-    await localDataSource.cacheToken(response.token);
-    return response;
+  Future<AuthResponse> login({
+    required String email,
+    required String password,
+  }) {
+    return localDataSource.loginOffline(email: email, password: password);
+  }
+
+  @override
+  Future<AuthResponse> register({
+    required String email,
+    required String password,
+    required String name,
+  }) {
+    return localDataSource.registerOffline(
+      email: email,
+      password: password,
+      name: name,
+    );
   }
 
   @override
   Future<void> logout() async {
-    await remoteDataSource.logout();
-    await localDataSource.clearToken();
+    await localDataSource.clearSession();
   }
 
   @override
-  Future<AuthResponse> register({required String email, required String password, required String name}) async {
-    final response = await remoteDataSource.register(email: email, password: password, name: name);
-    await localDataSource.cacheToken(response.token);
-    return response;
+  Future<AuthResponse?> getCachedSession() {
+    return localDataSource.getCachedSession();
   }
 }

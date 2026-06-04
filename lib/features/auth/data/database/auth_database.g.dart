@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'app_database.dart';
+part of 'auth_database.dart';
 
 // ignore_for_file: type=lint
 class $AuthUsersTable extends AuthUsers
@@ -451,9 +451,9 @@ class AuthUsersCompanion extends UpdateCompanion<AuthUser> {
   }
 }
 
-abstract class _$AppDatabase extends GeneratedDatabase {
-  _$AppDatabase(QueryExecutor e) : super(e);
-  $AppDatabaseManager get managers => $AppDatabaseManager(this);
+abstract class _$AuthDatabase extends GeneratedDatabase {
+  _$AuthDatabase(QueryExecutor e) : super(e);
+  $AuthDatabaseManager get managers => $AuthDatabaseManager(this);
   late final $AuthUsersTable authUsers = $AuthUsersTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
@@ -486,7 +486,7 @@ typedef $$AuthUsersTableUpdateCompanionBuilder =
     });
 
 class $$AuthUsersTableFilterComposer
-    extends Composer<_$AppDatabase, $AuthUsersTable> {
+    extends Composer<_$AuthDatabase, $AuthUsersTable> {
   $$AuthUsersTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -531,7 +531,7 @@ class $$AuthUsersTableFilterComposer
 }
 
 class $$AuthUsersTableOrderingComposer
-    extends Composer<_$AppDatabase, $AuthUsersTable> {
+    extends Composer<_$AuthDatabase, $AuthUsersTable> {
   $$AuthUsersTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -576,7 +576,7 @@ class $$AuthUsersTableOrderingComposer
 }
 
 class $$AuthUsersTableAnnotationComposer
-    extends Composer<_$AppDatabase, $AuthUsersTable> {
+    extends Composer<_$AuthDatabase, $AuthUsersTable> {
   $$AuthUsersTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -609,7 +609,7 @@ class $$AuthUsersTableAnnotationComposer
 class $$AuthUsersTableTableManager
     extends
         RootTableManager<
-          _$AppDatabase,
+          _$AuthDatabase,
           $AuthUsersTable,
           AuthUser,
           $$AuthUsersTableFilterComposer,
@@ -617,11 +617,11 @@ class $$AuthUsersTableTableManager
           $$AuthUsersTableAnnotationComposer,
           $$AuthUsersTableCreateCompanionBuilder,
           $$AuthUsersTableUpdateCompanionBuilder,
-          (AuthUser, BaseReferences<_$AppDatabase, $AuthUsersTable, AuthUser>),
+          (AuthUser, BaseReferences<_$AuthDatabase, $AuthUsersTable, AuthUser>),
           AuthUser,
           PrefetchHooks Function()
         > {
-  $$AuthUsersTableTableManager(_$AppDatabase db, $AuthUsersTable table)
+  $$AuthUsersTableTableManager(_$AuthDatabase db, $AuthUsersTable table)
     : super(
         TableManagerState(
           db: db,
@@ -682,7 +682,7 @@ class $$AuthUsersTableTableManager
 
 typedef $$AuthUsersTableProcessedTableManager =
     ProcessedTableManager<
-      _$AppDatabase,
+      _$AuthDatabase,
       $AuthUsersTable,
       AuthUser,
       $$AuthUsersTableFilterComposer,
@@ -690,14 +690,14 @@ typedef $$AuthUsersTableProcessedTableManager =
       $$AuthUsersTableAnnotationComposer,
       $$AuthUsersTableCreateCompanionBuilder,
       $$AuthUsersTableUpdateCompanionBuilder,
-      (AuthUser, BaseReferences<_$AppDatabase, $AuthUsersTable, AuthUser>),
+      (AuthUser, BaseReferences<_$AuthDatabase, $AuthUsersTable, AuthUser>),
       AuthUser,
       PrefetchHooks Function()
     >;
 
-class $AppDatabaseManager {
-  final _$AppDatabase _db;
-  $AppDatabaseManager(this._db);
+class $AuthDatabaseManager {
+  final _$AuthDatabase _db;
+  $AuthDatabaseManager(this._db);
   $$AuthUsersTableTableManager get authUsers =>
       $$AuthUsersTableTableManager(_db, _db.authUsers);
 }
