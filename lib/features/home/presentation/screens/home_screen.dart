@@ -6,7 +6,6 @@ import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_state.dart';
 import '../widgets/home_app_bar_widget.dart';
 import '../widgets/home_bottom_navigation_bar_widget.dart';
-import '../widgets/home_tab_content_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Navigator.of(context).pushReplacementNamed(AppRoutes.login);
           }
         },
-        child: HomeTabContentWidget(tabIndex: _currentTabIndex),
+        child: Container(),
       ),
       bottomNavigationBar: HomeBottomNavigationBarWidget(
         currentIndex: _currentTabIndex,
