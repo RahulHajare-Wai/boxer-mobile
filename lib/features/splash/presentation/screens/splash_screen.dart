@@ -51,8 +51,8 @@ class _SplashScreenState extends State<SplashScreen>
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              AppColors.primary,
-              AppColors.primaryDark,
+              Colors.white,
+              const Color.fromARGB(255, 90, 93, 87).withValues(alpha: 0.02),
             ],
           ),
         ),
@@ -67,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen>
                   // Boxer Logo Image
                   Image.asset(
                     'assets/images/boxer_logo.png',
-                    height: 180,
+                    height: 100,
                     width: 280,
                     fit: BoxFit.contain,
                   ),
@@ -77,7 +77,7 @@ class _SplashScreenState extends State<SplashScreen>
                   Text(
                     AppStrings.appName,
                     style: AppTextStyles.displayLarge.copyWith(
-                      color: Colors.white,
+                      color: AppColors.textPrimary,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -87,7 +87,7 @@ class _SplashScreenState extends State<SplashScreen>
                   Text(
                     'Your Boxing Companion',
                     style: AppTextStyles.bodyLarge.copyWith(
-                      color: Colors.white70,
+                      color: AppColors.textSecondary,
                     ),
                   ),
                 ],

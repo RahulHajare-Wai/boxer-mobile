@@ -42,9 +42,9 @@ flutter:
     - assets/images/boxer_logo.png
 
 flutter_native_splash:
-  color: '#900707'
+  color: '#FFFFFF'
   image: assets/images/boxer_logo.png
   android_12:
     image: assets/images/boxer_logo.png
-    icon_background_color: '#900707'
+    icon_background_color: '#FFFFFF'
   ios: true
