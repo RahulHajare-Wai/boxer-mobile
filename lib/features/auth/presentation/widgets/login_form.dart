@@ -54,14 +54,6 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  void _handleGoogleLogin() {
-    context.read<AuthBloc>().add(const GoogleLoginRequested());
-  }
-
-  void _handleSsoLogin() {
-    context.read<AuthBloc>().add(const SsoLoginRequested());
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
@@ -146,17 +138,16 @@ class _LoginFormState extends State<LoginForm> {
                 _buildDivider(),
                 const SizedBox(height: 28),
 
-                // Social Login Buttons
-                //_buildSocialLoginButtons(state is AuthLoading),
-                //const SizedBox(height: 24),
-
                 // Biometric Login Option
                 _buildBiometricLogin(),
                 const SizedBox(height: 32),
 
                 // Security Footer
                 _buildSecurityFooter(),
-                const SizedBox(height: 16),
+                const SizedBox(height: 24),
+
+                // Sign Up Link
+                _buildSignUpLink(),
               ],
             ),
           );
@@ -390,66 +381,6 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  Widget _buildSocialLoginButtons(bool isLoading) {
-    return Row(
-      children: [
-        Expanded(
-          child: _buildSocialButton(
-            icon: Icons.g_mobiledata,
-            label: AppStrings.google,
-            onPressed: isLoading ? null : _handleGoogleLogin,
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: _buildSocialButton(
-            icon: Icons.business,
-            label: AppStrings.loginWithSso,
-            onPressed: isLoading ? null : _handleSsoLogin,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSocialButton({
-    required IconData icon,
-    required String label,
-    required VoidCallback? onPressed,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.border, width: 1.5),
-        borderRadius: BorderRadius.circular(12),
-        color: Colors.white,
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onPressed,
-          borderRadius: BorderRadius.circular(11),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 14),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(icon, color: AppColors.textPrimary, size: 20),
-                const SizedBox(width: 8),
-                Text(
-                  label,
-                  style: AppTextStyles.labelMedium.copyWith(
-                    color: AppColors.textPrimary,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _buildBiometricLogin() {
     return Container(
       decoration: BoxDecoration(
@@ -509,6 +440,34 @@ class _LoginFormState extends State<LoginForm> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildSignUpLink() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          AppStrings.dontHaveAccount,
+          style: AppTextStyles.bodyMedium.copyWith(
+            color: AppColors.textSecondary,
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed(AppRoutes.register);
+          },
+          child: Text(
+            AppStrings.signUp,
+            style: AppTextStyles.labelLarge.copyWith(
+              color: AppColors.primary,
+              fontWeight: FontWeight.w600,
+              decoration: TextDecoration.underline,
+              decorationColor: AppColors.primary,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
