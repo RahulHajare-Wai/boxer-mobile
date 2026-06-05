@@ -44,10 +44,10 @@ class _LoginFormState extends State<LoginForm> {
       return;
     }
 
-    // Trigger login event via BLoC
+    // Trigger login event via BLoC (trim email to avoid whitespace issues)
     context.read<AuthBloc>().add(
       LoginRequested(
-        email: _emailController.text,
+        email: _emailController.text.trim().toLowerCase(),
         password: _passwordController.text,
         rememberMe: false,
       ),

@@ -49,17 +49,17 @@ class _RegisterFormState extends State<RegisterForm> {
         _emailController.text.isEmpty ||
         _passwordController.text.isEmpty ||
         _confirmPasswordController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text(AppStrings.fillAllFields)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text(AppStrings.fillAllFields)));
       return;
     }
 
     // Validate email format
     if (!_isValidEmail(_emailController.text)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text(AppStrings.enterValidEmail)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text(AppStrings.enterValidEmail)));
       return;
     }
 
@@ -79,14 +79,14 @@ class _RegisterFormState extends State<RegisterForm> {
       return;
     }
 
-    // Trigger register event via BLoC
+    // Trigger register event via BLoC (normalize email for consistency)
     context.read<AuthBloc>().add(
-          RegisterRequested(
-            name: _nameController.text,
-            email: _emailController.text,
-            password: _passwordController.text,
-          ),
-        );
+      RegisterRequested(
+        name: _nameController.text,
+        email: _emailController.text.trim().toLowerCase(),
+        password: _passwordController.text,
+      ),
+    );
   }
 
   bool _isValidEmail(String email) {
@@ -277,17 +277,11 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(
-                color: AppColors.border,
-                width: 1.5,
-              ),
+              borderSide: const BorderSide(color: AppColors.border, width: 1.5),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(
-                color: AppColors.primary,
-                width: 2,
-              ),
+              borderSide: const BorderSide(color: AppColors.primary, width: 2),
             ),
             suffixIcon: IconButton(
               icon: Icon(
@@ -342,17 +336,11 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(
-                color: AppColors.border,
-                width: 1.5,
-              ),
+              borderSide: const BorderSide(color: AppColors.border, width: 1.5),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(
-                color: AppColors.primary,
-                width: 2,
-              ),
+              borderSide: const BorderSide(color: AppColors.primary, width: 2),
             ),
             suffixIcon: IconButton(
               icon: Icon(

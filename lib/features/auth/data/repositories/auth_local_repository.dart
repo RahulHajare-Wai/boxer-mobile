@@ -37,10 +37,27 @@ class AuthLocalRepository {
     required String email,
     required String password,
   }) async {
-    final authUser = await database.getUserByEmail(email);
+    final normalizedEmail = email.trim().toLowerCase();
+    // ignore: avoid_print
+    print(
+      '[AUTH] Login attempt - Email: $normalizedEmail, Password length: ${password.length}',
+    );
+    final authUser = await database.getUserByEmail(normalizedEmail);
+    // ignore: avoid_print
+    print('[AUTH] User found in DB: ${authUser != null}');
+    if (authUser != null) {
+      // ignore: avoid_print
+      print(
+        '[AUTH] Stored password: ${authUser.password}, Provided password: $password',
+      );
+      // ignore: avoid_print
+      print('[AUTH] Password match: ${authUser.password == password}');
+    }
     if (authUser == null || authUser.password != password) {
       throw const AuthLocalException('Invalid email or password');
     }
+    // ignore: avoid_print
+    print('[AUTH] Login successful for user: ${authUser.email}');
 
     final token =
         'offline_token_${authUser.id}_${DateTime.now().millisecondsSinceEpoch}';
@@ -67,17 +84,26 @@ class AuthLocalRepository {
     required String password,
     required String name,
   }) async {
-    if (await isEmailRegistered(email)) {
+    final normalizedEmail = email.trim().toLowerCase();
+    // ignore: avoid_print
+    print(
+      '[AUTH] Register attempt - Email: $normalizedEmail, Name: $name, Password length: ${password.length}',
+    );
+    if (await isEmailRegistered(normalizedEmail)) {
+      // ignore: avoid_print
+      print('[AUTH] Email already registered: $normalizedEmail');
       throw const AuthLocalException('Email is already registered');
     }
 
     final userId = DateTime.now().millisecondsSinceEpoch.toString();
     final token = 'offline_token_$userId';
+    // ignore: avoid_print
+    print('[AUTH] New user ID: $userId, Token: $token');
 
     await database.insertOrUpdateAuthUser(
       AuthUsersCompanion(
         id: Value(userId),
-        email: Value(email),
+        email: Value(normalizedEmail),
         name: Value(name),
         password: Value(password),
         token: Value(token),
@@ -87,12 +113,13 @@ class AuthLocalRepository {
 
     return AuthResponse(
       token: token,
-      user: User(id: userId, email: email, name: name),
+      user: User(id: userId, email: normalizedEmail, name: name),
     );
   }
 
   Future<bool> isEmailRegistered(String email) async {
-    final user = await database.getUserByEmail(email);
+    final normalizedEmail = email.trim().toLowerCase();
+    final user = await database.getUserByEmail(normalizedEmail);
     return user != null;
   }
 }
