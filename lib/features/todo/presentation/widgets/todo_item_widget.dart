@@ -24,12 +24,9 @@ class TodoItemWidget extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.surface,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: Colors.grey[300] ?? const Color(0xFFE5E7EB),
-            width: 1,
-          ),
+          border: Border.all(color: AppColors.divider, width: 1),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,9 +151,9 @@ class TodoItemWidget extends StatelessWidget {
   }
 
   Color _getPriorityColor() {
-    if (todo.priority == 'compliance') return const Color(0xFFEF4444);
-    if (todo.priority == 'request') return const Color(0xFF7C3AED);
-    if (todo.priority == 'store_visit') return const Color(0xFFFB923C);
+    if (todo.priority == TodoModel.priorityCompliance) return AppColors.error;
+    if (todo.priority == TodoModel.priorityRequest) return AppColors.info;
+    if (todo.priority == TodoModel.priorityStoreVisit) return AppColors.warning;
     return AppColors.primary;
   }
 }

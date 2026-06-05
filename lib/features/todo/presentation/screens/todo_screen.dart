@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/config/app_colors.dart';
+import '../../../../core/constants/app_strings.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_state.dart';
 import '../widgets/todo_list_widget.dart';
@@ -15,9 +16,9 @@ class TodoScreen extends StatefulWidget {
 
 class _TodoScreenState extends State<TodoScreen> {
   void _addTodo() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Add new todo functionality coming soon!')),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text(AppStrings.todoAddComingSoon)));
   }
 
   @override

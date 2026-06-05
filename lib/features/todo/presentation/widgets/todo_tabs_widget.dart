@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../../../../core/config/app_colors.dart';
 import '../../../../../core/config/app_text_styles.dart';
+import '../../../../../core/constants/app_strings.dart';
 
 class TodoTabsWidget extends StatelessWidget {
   final int selectedTabIndex;
   final Function(int) onTabChanged;
-  final Map<int, String> tabCounts;
+  final Map<int, int> tabCounts;
 
   const TodoTabsWidget({
     super.key,
@@ -16,14 +17,18 @@ class TodoTabsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tabs = ['My to dos', 'To validate', 'All to dos'];
+    final tabs = [
+      AppStrings.todoMyTodos,
+      AppStrings.todoToValidate,
+      AppStrings.todoAllTodos,
+    ];
 
     return Container(
-      color: Colors.white,
+      color: AppColors.surface,
       child: Row(
         children: List.generate(tabs.length, (index) {
           final isSelected = selectedTabIndex == index;
-          final count = tabCounts[index] ?? '0';
+          final count = tabCounts[index] ?? 0;
 
           return Expanded(
             child: GestureDetector(
@@ -38,7 +43,7 @@ class TodoTabsWidget extends StatelessWidget {
                     bottom: BorderSide(
                       color: isSelected
                           ? AppColors.primary
-                          : Colors.transparent,
+                          : AppColors.transparent,
                       width: 3,
                     ),
                   ),

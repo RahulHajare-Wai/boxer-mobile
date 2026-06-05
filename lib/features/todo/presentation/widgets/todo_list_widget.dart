@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../data/models/todo_model.dart';
+import '../../../../../core/constants/app_strings.dart';
 import 'todo_tabs_widget.dart';
 import 'todo_section_widget.dart';
 
@@ -26,7 +27,7 @@ class _TodoListWidgetState extends State<TodoListWidget> {
               _selectedTabIndex = index;
             });
           },
-          tabCounts: {0: '${_todos.length}', 1: '0', 2: '${_todos.length}'},
+          tabCounts: {0: _todos.length, 1: 0, 2: _todos.length},
         ),
         const SizedBox(height: 8),
         // Todo sections
@@ -36,14 +37,18 @@ class _TodoListWidgetState extends State<TodoListWidget> {
               children: [
                 // Draft section
                 TodoSectionWidget(
-                  sectionTitle: 'Draft',
-                  todos: _todos.where((t) => t.section == 'draft').toList(),
+                  sectionTitle: AppStrings.todoSectionDraft,
+                  todos: _todos
+                      .where((t) => t.section == TodoModel.sectionDraft)
+                      .toList(),
                   onItemTap: () {},
                 ),
                 // Upcoming section
                 TodoSectionWidget(
-                  sectionTitle: 'Upcoming',
-                  todos: _todos.where((t) => t.section == 'upcoming').toList(),
+                  sectionTitle: AppStrings.todoSectionUpcoming,
+                  todos: _todos
+                      .where((t) => t.section == TodoModel.sectionUpcoming)
+                      .toList(),
                   onItemTap: () {},
                 ),
               ],

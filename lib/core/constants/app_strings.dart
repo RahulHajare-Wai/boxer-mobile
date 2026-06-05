@@ -119,4 +119,37 @@ class AppStrings {
       'Additional features coming soon';
   static const String ready = 'Hi';
   static const String readyToTackle = 'ready to tackle some tasks?';
+
+  // Todo
+  static const String todoMyTodos = 'My to dos';
+  static const String todoToValidate = 'To validate';
+  static const String todoAllTodos = 'All to dos';
+  static const String todoSectionDraft = 'Draft';
+  static const String todoSectionUpcoming = 'Upcoming';
+  static const String todoAddComingSoon =
+      'Add new todo functionality coming soon!';
+
+  // Todo badges
+  static const String todoBadgeRequest = 'Request';
+  static const String todoBadgeStoreVisitsGmGe = 'Store Visits (GM/GE)';
+  static const String todoBadgeDraft = 'Draft';
+  static const String todoBadgeForm = 'Form';
+  static const String todoBadgeCompliance = 'Compliance';
+  static const String todoBadgeStockManagement = 'Stock management';
+  static const String todoBadgePendingValidation = 'Pending validation';
+  static const String todoBadgeReport = 'Report';
+  static const String todoBadgeUrgent = 'Urgent';
+
+  // Todo sample data
+  static const String todoTitleBranchVisit = 'GM/GE Branch Visit Task';
+  static const String todoTitleLowStockScan =
+      'Morning Low Stock Scan Compliance';
+  static const String todoTitleReconciliation = 'Evening Reconciliation Report';
+  static const String todoAssignedFromSupport = 'From Boxer Support';
+  static const String todoSubtitleBurgersfort =
+      '115 - Burgersfort 2 - Dirk Breytenbach';
+  static const String todoDueYesterday = 'Yesterday';
+  static const String todoDueToday = 'Today';
+  static const String todoDueDateBranchVisit = '06/01/2026';
+  static const String todoDueTimeToday1030 = 'Due today at 10:30 PM';
 }
