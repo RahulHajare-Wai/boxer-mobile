@@ -32,6 +32,8 @@ class AppStrings {
   static const String loginWithSso = 'Login with SSO';
   static const String continueWithGoogle = 'Continue with Google';
   static const String continueWithApple = 'Continue with Apple';
+  static const String biometricLogin = 'Biometric Login';
+  static const String securityFooter = '256-bit AES encrypted · Zero-knowledge';
   static const String googleLoginNotImplemented =
       'Google login not yet implemented';
   static const String ssoLoginNotImplemented = 'SSO login not yet implemented';

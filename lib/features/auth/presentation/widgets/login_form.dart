@@ -147,11 +147,15 @@ class _LoginFormState extends State<LoginForm> {
                 const SizedBox(height: 28),
 
                 // Social Login Buttons
-                _buildSocialLoginButtons(state is AuthLoading),
+                //_buildSocialLoginButtons(state is AuthLoading),
+                //const SizedBox(height: 24),
+
+                // Biometric Login Option
+                _buildBiometricLogin(),
                 const SizedBox(height: 32),
 
-                // Sign Up Link
-                _buildSignUpLink(),
+                // Security Footer
+                _buildSecurityFooter(),
                 const SizedBox(height: 16),
               ],
             ),
@@ -446,31 +450,65 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  Widget _buildSignUpLink() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          AppStrings.dontHaveAccount,
-          style: AppTextStyles.bodyMedium.copyWith(
-            color: AppColors.textSecondary,
-          ),
-        ),
-        GestureDetector(
+  Widget _buildBiometricLogin() {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: AppColors.border, width: 1.5),
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.white,
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
           onTap: () {
-            Navigator.of(context).pushNamed(AppRoutes.register);
+            // TODO: Implement biometric login
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Biometric login coming soon'),
+                duration: Duration(seconds: 2),
+              ),
+            );
           },
-          child: Text(
-            AppStrings.signUp,
-            style: AppTextStyles.labelLarge.copyWith(
-              color: AppColors.primary,
-              fontWeight: FontWeight.w600,
-              decoration: TextDecoration.underline,
-              decorationColor: AppColors.primary,
+          borderRadius: BorderRadius.circular(11),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.fingerprint, color: AppColors.primary, size: 22),
+                const SizedBox(width: 8),
+                Text(
+                  AppStrings.biometricLogin,
+                  style: AppTextStyles.labelMedium.copyWith(
+                    color: AppColors.textPrimary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
-      ],
+      ),
+    );
+  }
+
+  Widget _buildSecurityFooter() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.lock_rounded, size: 16, color: AppColors.primary),
+          const SizedBox(width: 6),
+          Text(
+            AppStrings.securityFooter,
+            style: AppTextStyles.bodySmall.copyWith(
+              color: AppColors.primary,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

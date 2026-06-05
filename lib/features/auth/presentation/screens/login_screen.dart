@@ -17,7 +17,7 @@ class LoginScreen extends StatelessWidget {
             end: Alignment.bottomCenter,
             colors: [
               Colors.white,
-              const Color.fromARGB(255, 90, 93, 87).withValues(alpha: 0.02),
+              const Color.fromARGB(255, 217, 241, 196).withValues(alpha: 0.02),
             ],
           ),
         ),
