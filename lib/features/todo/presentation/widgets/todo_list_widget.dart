@@ -32,6 +32,15 @@ class _TodoListWidgetState extends State<TodoListWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        TodoSearchFilterBarWidget(
+          onSearchChanged: (value) {
+            setState(() {
+              _searchQuery = value;
+            });
+          },
+          onFilterPressed: null,
+          onSortPressed: null,
+        ),
         // Tabs
         TodoTabsWidget(
           selectedTabIndex: _selectedTabIndex,
@@ -41,15 +50,6 @@ class _TodoListWidgetState extends State<TodoListWidget> {
             });
           },
           tabCounts: {0: _todos.length, 1: 0, 2: _todos.length},
-        ),
-        TodoSearchFilterBarWidget(
-          onSearchChanged: (value) {
-            setState(() {
-              _searchQuery = value;
-            });
-          },
-          onFilterPressed: null,
-          onSortPressed: null,
         ),
         // Todo sections
         Expanded(

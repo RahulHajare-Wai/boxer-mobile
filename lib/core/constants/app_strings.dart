@@ -128,9 +128,15 @@ class AppStrings {
   static const String todoSectionUpcoming = 'Upcoming';
   static const String todoAddComingSoon =
       'Add new todo functionality coming soon!';
-    static const String todoSearchHint = 'Search';
-    static const String todoFilter = 'Filter';
-    static const String todoSort = 'Sort';
+  static const String todoSearchHint = 'Search';
+  static const String todoFilter = 'Filter';
+  static const String todoSort = 'Sort';
+
+  // Todo status tabs
+  static const String todoStatusTodo = 'To do';
+  static const String todoStatusStarted = 'Started';
+  static const String todoStatusProcessing = 'Processing';
+  static const String todoStatusDone = 'Done';
 
   // Todo badges
   static const String todoBadgeRequest = 'Request';

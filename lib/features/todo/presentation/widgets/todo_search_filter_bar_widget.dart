@@ -17,12 +17,14 @@ class TodoSearchFilterBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void noop() {}
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         children: [
           IconButton(
-            onPressed: onFilterPressed,
+            onPressed: onFilterPressed ?? noop,
             tooltip: AppStrings.todoFilter,
             icon: const Icon(Icons.filter_alt_outlined),
             color: AppColors.textSecondary,
@@ -49,7 +51,7 @@ class TodoSearchFilterBarWidget extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: onSortPressed,
+            onPressed: onSortPressed ?? noop,
             tooltip: AppStrings.todoSort,
             icon: const Icon(Icons.tune_rounded),
             color: AppColors.textSecondary,
