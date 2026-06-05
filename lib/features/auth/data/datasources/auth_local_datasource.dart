@@ -7,23 +7,22 @@ abstract class AuthLocalDataSource {
 }
 
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
-  AuthLocalDataSourceImpl({required AuthLocalDatabase database})
-      : _database = database;
+  AuthLocalDataSourceImpl({required this.database});
 
-  final AuthLocalDatabase _database;
+  final AuthLocalDatabase database;
 
   @override
   Future<void> cacheToken(String token) {
-    return _database.cacheToken(token);
+    return database.cacheToken(token);
   }
 
   @override
   Future<String?> getToken() {
-    return _database.getToken();
+    return database.getToken();
   }
 
   @override
   Future<void> clearToken() {
-    return _database.clearToken();
+    return database.clearToken();
   }
 }

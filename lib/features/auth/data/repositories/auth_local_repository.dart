@@ -7,29 +7,21 @@ import '../models/auth_local_database.dart';
 
 /// Offline auth business logic backed by local Drift storage.
 class AuthLocalRepository {
-  AuthLocalRepository({
-    required AuthLocalDataSource localDataSource,
-    required AuthLocalDatabase database,
-  })  : _localDataSource = localDataSource,
-        _database = database;
+  AuthLocalRepository({required this.localDataSource, required this.database});
 
-  final AuthLocalDataSource _localDataSource;
-  final AuthLocalDatabase _database;
+  final AuthLocalDataSource localDataSource;
+  final AuthLocalDatabase database;
 
   Future<AuthResponse?> getCachedSession() async {
-    final token = await _localDataSource.getToken();
+    final token = await localDataSource.getToken();
     if (token == null) return null;
 
-    final authUser = await _database.getCurrentUser();
+    final authUser = await database.getCurrentUser();
     if (authUser == null) return null;
 
     return AuthResponse(
       token: authUser.token,
-      user: User(
-        id: authUser.id,
-        email: authUser.email,
-        name: authUser.name,
-      ),
+      user: User(id: authUser.id, email: authUser.email, name: authUser.name),
     );
   }
 
@@ -38,15 +30,15 @@ class AuthLocalRepository {
   }
 
   Future<void> clearSession() async {
-    await _localDataSource.clearToken();
-    await _database.deleteAllAuthUsers();
+    await localDataSource.clearToken();
+    await database.deleteAllAuthUsers();
   }
 
   Future<AuthResponse> loginOffline({
     required String email,
     required String password,
   }) async {
-    final authUser = await _database.getUserByEmail(email);
+    final authUser = await database.getUserByEmail(email);
     if (authUser == null || authUser.password != password) {
       throw const AuthLocalException('Invalid email or password');
     }
@@ -54,7 +46,7 @@ class AuthLocalRepository {
     final token =
         'offline_token_${authUser.id}_${DateTime.now().millisecondsSinceEpoch}';
 
-    await _database.insertOrUpdateAuthUser(
+    await database.insertOrUpdateAuthUser(
       AuthUsersCompanion(
         id: Value(authUser.id),
         email: Value(authUser.email),
@@ -63,15 +55,11 @@ class AuthLocalRepository {
         token: Value(token),
       ),
     );
-    await _localDataSource.cacheToken(token);
+    await localDataSource.cacheToken(token);
 
     return AuthResponse(
       token: token,
-      user: User(
-        id: authUser.id,
-        email: authUser.email,
-        name: authUser.name,
-      ),
+      user: User(id: authUser.id, email: authUser.email, name: authUser.name),
     );
   }
 
@@ -87,7 +75,7 @@ class AuthLocalRepository {
     final userId = DateTime.now().millisecondsSinceEpoch.toString();
     final token = 'offline_token_$userId';
 
-    await _database.insertOrUpdateAuthUser(
+    await database.insertOrUpdateAuthUser(
       AuthUsersCompanion(
         id: Value(userId),
         email: Value(email),
@@ -96,7 +84,7 @@ class AuthLocalRepository {
         token: Value(token),
       ),
     );
-    await _localDataSource.cacheToken(token);
+    await localDataSource.cacheToken(token);
 
     return AuthResponse(
       token: token,
@@ -105,7 +93,7 @@ class AuthLocalRepository {
   }
 
   Future<bool> isEmailRegistered(String email) async {
-    final user = await _database.getUserByEmail(email);
+    final user = await database.getUserByEmail(email);
     return user != null;
   }
 }
