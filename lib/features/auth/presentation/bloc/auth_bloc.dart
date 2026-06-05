@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/app_strings.dart';
+import '../../data/repositories/auth_local_repository.dart';
+import '../../domain/usecases/get_cached_session_usecase.dart';
 import '../../domain/usecases/login_usecase.dart';
 import '../../domain/usecases/logout_usecase.dart';
 import '../../domain/usecases/register_usecase.dart';
@@ -12,19 +14,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required this.loginUseCase,
     required this.registerUseCase,
     required this.logoutUseCase,
+    required this.getCachedSessionUseCase,
   }) : super(const AuthInitial()) {
     on<LoginRequested>(_onLoginRequested);
     on<RegisterRequested>(_onRegisterRequested);
     on<LogoutRequested>(_onLogoutRequested);
     on<GoogleLoginRequested>(_onGoogleLoginRequested);
     on<SsoLoginRequested>(_onSsoLoginRequested);
+    on<AuthCheckRequested>(_onAuthCheckRequested);
   }
 
   final LoginUseCase loginUseCase;
   final RegisterUseCase registerUseCase;
   final LogoutUseCase logoutUseCase;
+  final GetCachedSessionUseCase getCachedSessionUseCase;
 
-  /// Handle login event
   Future<void> _onLoginRequested(
     LoginRequested event,
     Emitter<AuthState> emit,
@@ -43,12 +47,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           token: result.token,
         ),
       );
+    } on AuthLocalException catch (e) {
+      emit(AuthError(e.message));
     } catch (e) {
       emit(AuthError(e.toString()));
     }
   }
 
-  /// Handle registration event
   Future<void> _onRegisterRequested(
     RegisterRequested event,
     Emitter<AuthState> emit,
@@ -68,12 +73,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           token: result.token,
         ),
       );
+    } on AuthLocalException catch (e) {
+      emit(AuthError(e.message));
     } catch (e) {
       emit(AuthError(e.toString()));
     }
   }
 
-  /// Handle logout event
   Future<void> _onLogoutRequested(
     LogoutRequested event,
     Emitter<AuthState> emit,
@@ -87,29 +93,49 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  /// Handle Google login event
   Future<void> _onGoogleLoginRequested(
     GoogleLoginRequested event,
     Emitter<AuthState> emit,
   ) async {
     emit(const AuthLoading());
     try {
-      // TODO: Implement Google login using Firebase or other provider
       emit(const AuthError(AppStrings.googleLoginNotImplemented));
     } catch (e) {
       emit(AuthError(e.toString()));
     }
   }
 
-  /// Handle SSO login event
   Future<void> _onSsoLoginRequested(
     SsoLoginRequested event,
     Emitter<AuthState> emit,
   ) async {
     emit(const AuthLoading());
     try {
-      // TODO: Implement SSO login using the corporate identity provider
       emit(const AuthError(AppStrings.ssoLoginNotImplemented));
+    } catch (e) {
+      emit(AuthError(e.toString()));
+    }
+  }
+
+  Future<void> _onAuthCheckRequested(
+    AuthCheckRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(const AuthLoading());
+    try {
+      final cachedResponse = await getCachedSessionUseCase();
+      if (cachedResponse != null) {
+        emit(
+          AuthAuthenticated(
+            userId: cachedResponse.user.id,
+            email: cachedResponse.user.email,
+            name: cachedResponse.user.name,
+            token: cachedResponse.token,
+          ),
+        );
+        return;
+      }
+      emit(const AuthInitial());
     } catch (e) {
       emit(AuthError(e.toString()));
     }
