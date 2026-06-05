@@ -24,9 +24,16 @@ class AuthLocalDatabase extends _$AuthLocalDatabase {
     return select(authUsers).getSingleOrNull();
   }
 
+  Future<AuthUser?> getUserByToken(String token) {
+    return (select(
+      authUsers,
+    )..where((u) => u.token.equals(token))).getSingleOrNull();
+  }
+
   Future<AuthUser?> getUserByEmail(String email) {
-    return (select(authUsers)..where((u) => u.email.equals(email)))
-        .getSingleOrNull();
+    return (select(
+      authUsers,
+    )..where((u) => u.email.equals(email))).getSingleOrNull();
   }
 
   Future<int> deleteAllAuthUsers() {
@@ -43,9 +50,9 @@ class AuthLocalDatabase extends _$AuthLocalDatabase {
   }
 
   Future<String?> getToken() async {
-    final session = await (select(authSessions)
-          ..where((s) => s.id.equals(_sessionId)))
-        .getSingleOrNull();
+    final session = await (select(
+      authSessions,
+    )..where((s) => s.id.equals(_sessionId))).getSingleOrNull();
     return session?.accessToken;
   }
 

@@ -16,7 +16,7 @@ class AuthLocalRepository {
     final token = await localDataSource.getToken();
     if (token == null) return null;
 
-    final authUser = await database.getCurrentUser();
+    final authUser = await database.getUserByToken(token);
     if (authUser == null) return null;
 
     return AuthResponse(
@@ -31,7 +31,6 @@ class AuthLocalRepository {
 
   Future<void> clearSession() async {
     await localDataSource.clearToken();
-    await database.deleteAllAuthUsers();
   }
 
   Future<AuthResponse> loginOffline({
