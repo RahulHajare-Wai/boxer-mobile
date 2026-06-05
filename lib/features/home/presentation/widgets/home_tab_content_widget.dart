@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/constants/app_strings.dart';
+import '../../../todo/presentation/screens/todo_screen.dart';
 import 'home_menu_section_widget.dart';
 import 'home_stats_section_widget.dart';
 import 'home_welcome_section_widget.dart';
@@ -8,10 +9,7 @@ import 'home_welcome_section_widget.dart';
 class HomeTabContentWidget extends StatelessWidget {
   final int tabIndex;
 
-  const HomeTabContentWidget({
-    super.key,
-    required this.tabIndex,
-  });
+  const HomeTabContentWidget({super.key, required this.tabIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -50,31 +48,7 @@ class HomeTabContentWidget extends StatelessWidget {
   }
 
   Widget _buildToDoTabContent() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.checklist, size: 64, color: Colors.grey[400]),
-          const SizedBox(height: 16),
-          Text(
-            AppStrings.toDoList,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey[600],
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            AppStrings.manageYourTasks,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey[500],
-            ),
-          ),
-        ],
-      ),
-    );
+    return const TodoScreen();
   }
 
   Widget _buildNewsfeedTabContent() {
@@ -95,10 +69,7 @@ class HomeTabContentWidget extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             AppStrings.stayUpdatedWithLatestNews,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey[500],
-            ),
+            style: TextStyle(fontSize: 14, color: Colors.grey[500]),
           ),
         ],
       ),
@@ -123,10 +94,7 @@ class HomeTabContentWidget extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             AppStrings.exploreNearbyLocations,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey[500],
-            ),
+            style: TextStyle(fontSize: 14, color: Colors.grey[500]),
           ),
         ],
       ),
@@ -151,10 +119,7 @@ class HomeTabContentWidget extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             AppStrings.additionalFeaturesComing,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey[500],
-            ),
+            style: TextStyle(fontSize: 14, color: Colors.grey[500]),
           ),
         ],
       ),

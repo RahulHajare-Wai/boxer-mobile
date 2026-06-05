@@ -4,6 +4,7 @@ import '../features/auth/presentation/screens/login_screen.dart';
 import '../features/auth/presentation/screens/register_screen.dart';
 import '../features/home/presentation/screens/home_screen.dart';
 import '../features/tasks/presentation/screens/tasks_screen.dart';
+import '../features/todo/presentation/screens/todo_screen.dart';
 import 'app_routes.dart';
 
 class AppRouter {
@@ -17,6 +18,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const HomeScreen());
       case AppRoutes.tasks:
         return MaterialPageRoute(builder: (_) => const TasksScreen());
+      case AppRoutes.todo:
+        return MaterialPageRoute(builder: (_) => const TodoScreen());
       case AppRoutes.splash:
       case AppRoutes.dashboard:
       default:
