@@ -37,7 +37,7 @@ class TodoModel {
         title: 'Morning Low Stock Scan Compliance',
         dueDate: 'Yesterday',
         section: 'draft',
-        badges: ['Form', 'Compliance'],
+        badges: ['Form', 'Stock management', 'Pending validation'],
         dueTime: 'Due today at 10:30 PM',
         priority: 'compliance',
         subtitle: '115 - Burgersfort 2 - Dirk Breytenbach',

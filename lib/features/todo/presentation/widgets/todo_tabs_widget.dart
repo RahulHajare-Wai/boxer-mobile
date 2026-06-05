@@ -20,18 +20,17 @@ class TodoTabsWidget extends StatelessWidget {
 
     return Container(
       color: Colors.white,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: List.generate(tabs.length, (index) {
-            final isSelected = selectedTabIndex == index;
-            final count = tabCounts[index] ?? '0';
+      child: Row(
+        children: List.generate(tabs.length, (index) {
+          final isSelected = selectedTabIndex == index;
+          final count = tabCounts[index] ?? '0';
 
-            return GestureDetector(
+          return Expanded(
+            child: GestureDetector(
               onTap: () => onTabChanged(index),
               child: Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
+                  horizontal: 12,
                   vertical: 12,
                 ),
                 decoration: BoxDecoration(
@@ -57,6 +56,9 @@ class TodoTabsWidget extends StatelessWidget {
                             ? FontWeight.w600
                             : FontWeight.w500,
                       ),
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 2),
                     Text(
@@ -71,9 +73,9 @@ class TodoTabsWidget extends StatelessWidget {
                   ],
                 ),
               ),
-            );
-          }),
-        ),
+            ),
+          );
+        }),
       ),
     );
   }
