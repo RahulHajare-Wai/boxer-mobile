@@ -28,11 +28,11 @@ class LoginScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
                 children: [
-                  // Header with logo and welcome message
+                  // Header with security icon and welcome message
                   const LoginHeader(),
                   // Login form with BLoC integration
                   const LoginForm(),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 48),
                 ],
               ),
             ),

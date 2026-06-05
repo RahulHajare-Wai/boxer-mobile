@@ -10,47 +10,47 @@ class LoginHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 50),
-        // Logo with subtle shadow
+        const SizedBox(height: 60),
+        // Security shield icon
         Container(
+          width: 80,
+          height: 80,
           decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: AppColors.primary,
             boxShadow: [
               BoxShadow(
-                color: AppColors.primary.withValues(alpha: 0.1),
-                blurRadius: 20,
+                color: AppColors.primary.withValues(alpha: 0.2),
+                blurRadius: 24,
                 offset: const Offset(0, 8),
               ),
             ],
           ),
-          child: Image.asset(
-            'assets/images/boxer_logo.png',
-            height: 100,
-            width: 280,
-            fit: BoxFit.contain,
+          child: const Icon(
+            Icons.shield_rounded,
+            size: 40,
+            color: Colors.white,
           ),
         ),
-        const SizedBox(height: 40),
-        // Welcome text with better typography
+        const SizedBox(height: 32),
+        // Welcome text
         Text(
           AppStrings.welcomeBack,
-          style: AppTextStyles.displayMedium.copyWith(
+          style: AppTextStyles.headlineLarge.copyWith(
             color: AppColors.textPrimary,
             fontWeight: FontWeight.w700,
-            letterSpacing: -0.5,
           ),
         ),
-        const SizedBox(height: 12),
-        // Subtitle for context
+        const SizedBox(height: 8),
+        // Subtitle
         Text(
           AppStrings.signInToContinue,
           style: AppTextStyles.bodyLarge.copyWith(
             color: AppColors.textSecondary,
             fontWeight: FontWeight.w400,
-            height: 1.5,
           ),
-          textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 48),
+        const SizedBox(height: 40),
       ],
     );
   }

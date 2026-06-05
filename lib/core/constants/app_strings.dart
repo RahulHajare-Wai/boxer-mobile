@@ -16,7 +16,9 @@ class AppStrings {
   static const String fullName = 'Full Name';
   static const String phoneNumber = 'Phone Number';
   static const String welcomeBack = 'Welcome Back!';
-  static const String signInToContinue = 'Sign in to continue..';
+  static const String signInToContinue = 'Sign in to continue';
+  static const String emailAddress = 'EMAIL ADDRESS';
+  static const String signInSecurely = 'Sign In Securely';
   static const String rememberMe = 'Remember me';
   static const String dontHaveAccount = "Don't have an account? ";
   static const String alreadyHaveAccount = 'Already have an account? ';
@@ -32,9 +34,8 @@ class AppStrings {
   static const String continueWithApple = 'Continue with Apple';
   static const String googleLoginNotImplemented =
       'Google login not yet implemented';
-  static const String ssoLoginNotImplemented =
-      'SSO login not yet implemented';
-  
+  static const String ssoLoginNotImplemented = 'SSO login not yet implemented';
+
   // Registration
   static const String createAccount = 'Create Account';
   static const String joinUs = 'Join us today!';
@@ -42,9 +43,11 @@ class AppStrings {
   static const String confirmPasswordPlaceholder = 'Re-enter your password';
   static const String registrationSuccess = 'Registration successful!';
   static const String emailAlreadyExists = 'Email is already registered';
-  static const String registrationFailed = 'Registration failed. Please try again.';
+  static const String registrationFailed =
+      'Registration failed. Please try again.';
   static const String invalidCredentials = 'Invalid email or password';
-  static const String passwordMinLength = 'Password must be at least 6 characters';
+  static const String passwordMinLength =
+      'Password must be at least 6 characters';
 
   // Dashboard
   static const String dashboard = 'Dashboard';
@@ -70,10 +73,14 @@ class AppStrings {
   static const String error = 'Error';
   static const String warning = 'Warning';
   static const String info = 'Info';
-  static const String somethingWentWrong = 'Something went wrong. Please try again.';
-  static const String noInternetConnection = 'No internet connection. Please check your network.';
-  static const String sessionExpired = 'Your session has expired. Please login again.';
-  static const String unauthorized = 'You are not authorized to perform this action.';
+  static const String somethingWentWrong =
+      'Something went wrong. Please try again.';
+  static const String noInternetConnection =
+      'No internet connection. Please check your network.';
+  static const String sessionExpired =
+      'Your session has expired. Please login again.';
+  static const String unauthorized =
+      'You are not authorized to perform this action.';
   static const String serverError = 'Server error. Please try again later.';
 
   // Validation
@@ -81,7 +88,8 @@ class AppStrings {
   static const String emailRequired = 'Email is required';
   static const String invalidEmail = 'Please enter a valid email address.';
   static const String enterValidEmail = 'Enter a valid email';
-  static const String passwordTooShort = 'Password must be at least 8 characters.';
+  static const String passwordTooShort =
+      'Password must be at least 8 characters.';
   static const String passwordMismatch = 'Passwords do not match.';
   static const String invalidPhone = 'Please enter a valid phone number.';
 
@@ -91,18 +99,22 @@ class AppStrings {
   static const String completed = 'Completed';
   static const String features = 'Features';
   static const String taskManagement = 'Task Management';
-  static const String organizeAndTrackYourTasks = 'Organize and track your tasks';
+  static const String organizeAndTrackYourTasks =
+      'Organize and track your tasks';
   static const String viewAndEditYourProfile = 'View and edit your profile';
-  static const String appSettingsAndPreferences = 'App settings and preferences';
+  static const String appSettingsAndPreferences =
+      'App settings and preferences';
   static const String todo = 'ToDo';
   static const String newsfeed = 'Newsfeed';
   static const String sites = 'Sites';
   static const String more = 'More';
   static const String toDoList = 'To-Do List';
   static const String manageYourTasks = 'Manage your tasks here';
-  static const String stayUpdatedWithLatestNews = 'Stay updated with latest news';
+  static const String stayUpdatedWithLatestNews =
+      'Stay updated with latest news';
   static const String exploreNearbyLocations = 'Explore nearby locations';
-  static const String additionalFeaturesComing = 'Additional features coming soon';
+  static const String additionalFeaturesComing =
+      'Additional features coming soon';
   static const String ready = 'Hi';
   static const String readyToTackle = 'ready to tackle some tasks?';
 }

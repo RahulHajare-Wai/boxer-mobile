@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/config/app_colors.dart';
 import '../../../../core/config/app_text_styles.dart';
 import '../../../../core/constants/app_strings.dart';
-import '../../../../core/widgets/custom_text_field.dart';
 import '../../../../router/app_routes.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
@@ -20,7 +19,6 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
-  bool _rememberMe = false;
   bool _obscurePassword = true;
 
   @override
@@ -40,9 +38,9 @@ class _LoginFormState extends State<LoginForm> {
   void _handleLogin() {
     // Validate inputs
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text(AppStrings.fillAllFields)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text(AppStrings.fillAllFields)));
       return;
     }
 
@@ -51,7 +49,7 @@ class _LoginFormState extends State<LoginForm> {
       LoginRequested(
         email: _emailController.text,
         password: _passwordController.text,
-        rememberMe: _rememberMe,
+        rememberMe: false,
       ),
     );
   }
@@ -94,18 +92,18 @@ class _LoginFormState extends State<LoginForm> {
                 // Email Field
                 _buildEmailField(),
                 const SizedBox(height: 24),
-                
+
                 // Password Field
                 _buildPasswordField(),
                 const SizedBox(height: 20),
-                
-                // Remember Me & Forgot Password Row
+
+                // Forgot Password Link
                 _buildRememberAndForgot(),
-                const SizedBox(height: 32),
-                
+                const SizedBox(height: 28),
+
                 // Login Button with loading state
                 _buildLoginButton(state is AuthLoading),
-                
+
                 // Error message display
                 if (state is AuthError)
                   Padding(
@@ -141,13 +139,13 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                     ),
                   ),
-                
+
                 const SizedBox(height: 32),
-                
+
                 // Divider with text
                 _buildDivider(),
                 const SizedBox(height: 28),
-                
+
                 // Social Login Buttons
                 _buildSocialLoginButtons(state is AuthLoading),
                 const SizedBox(height: 32),
@@ -196,14 +194,25 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                     ),
                   )
-                : Text(
-                    AppStrings.login.toUpperCase(),
-                    textAlign: TextAlign.center,
-                    style: AppTextStyles.labelLarge.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 0.5,
-                    ),
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.lock_rounded,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        AppStrings.signInSecurely,
+                        textAlign: TextAlign.center,
+                        style: AppTextStyles.labelLarge.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ],
                   ),
           ),
         ),
@@ -216,26 +225,49 @@ class _LoginFormState extends State<LoginForm> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppStrings.email,
-          style: AppTextStyles.labelLarge.copyWith(
-            color: AppColors.textPrimary,
+          AppStrings.emailAddress,
+          style: AppTextStyles.labelSmall.copyWith(
+            color: AppColors.textSecondary,
             fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
           ),
         ),
-        const SizedBox(height: 10),
-        CustomTextField(
+        const SizedBox(height: 8),
+        TextField(
           controller: _emailController,
-          hintText: AppStrings.emailPlaceholder,
           keyboardType: TextInputType.emailAddress,
-          validator: (value) {
-            if (value?.isEmpty ?? true) {
-              return AppStrings.emailRequired;
-            }
-            if (!_isValidEmail(value!)) {
-              return AppStrings.enterValidEmail;
-            }
-            return null;
-          },
+          style: AppTextStyles.bodyMedium.copyWith(
+            color: AppColors.textPrimary,
+          ),
+          decoration: InputDecoration(
+            hintText: AppStrings.emailPlaceholder,
+            hintStyle: AppTextStyles.bodyMedium.copyWith(
+              color: AppColors.textHint,
+            ),
+            prefixIcon: Icon(
+              Icons.person_outline_rounded,
+              color: AppColors.textSecondary,
+              size: 20,
+            ),
+            filled: true,
+            fillColor: Colors.white,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: AppColors.border),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: AppColors.border, width: 1.5),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: AppColors.primary, width: 2),
+            ),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 14,
+            ),
+          ),
         ),
       ],
     );
@@ -247,12 +279,13 @@ class _LoginFormState extends State<LoginForm> {
       children: [
         Text(
           AppStrings.password,
-          style: AppTextStyles.labelLarge.copyWith(
-            color: AppColors.textPrimary,
+          style: AppTextStyles.labelSmall.copyWith(
+            color: AppColors.textSecondary,
             fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 8),
         TextField(
           controller: _passwordController,
           obscureText: _obscurePassword,
@@ -264,6 +297,11 @@ class _LoginFormState extends State<LoginForm> {
             hintStyle: AppTextStyles.bodyMedium.copyWith(
               color: AppColors.textHint,
             ),
+            prefixIcon: Icon(
+              Icons.lock_outline_rounded,
+              color: AppColors.textSecondary,
+              size: 20,
+            ),
             filled: true,
             fillColor: Colors.white,
             border: OutlineInputBorder(
@@ -272,17 +310,11 @@ class _LoginFormState extends State<LoginForm> {
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(
-                color: AppColors.border,
-                width: 1.5,
-              ),
+              borderSide: const BorderSide(color: AppColors.border, width: 1.5),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(
-                color: AppColors.primary,
-                width: 2,
-              ),
+              borderSide: const BorderSide(color: AppColors.primary, width: 2),
             ),
             suffixIcon: IconButton(
               icon: Icon(
@@ -308,50 +340,8 @@ class _LoginFormState extends State<LoginForm> {
 
   Widget _buildRememberAndForgot() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        // Remember Me Checkbox
-        Expanded(
-          child: GestureDetector(
-            onTap: () {
-              setState(() {
-                _rememberMe = !_rememberMe;
-              });
-            },
-            child: Row(
-              children: [
-                Transform.scale(
-                  scale: 1.1,
-                  child: Checkbox(
-                    value: _rememberMe,
-                    onChanged: (value) {
-                      setState(() {
-                        _rememberMe = value ?? false;
-                      });
-                    },
-                    fillColor: WidgetStateProperty.resolveWith(
-                      (states) {
-                        if (states.contains(WidgetState.selected)) {
-                          return AppColors.primary;
-                        }
-                        return Colors.transparent;
-                      },
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  AppStrings.rememberMe,
-                  style: AppTextStyles.bodyMedium.copyWith(
-                    color: AppColors.textSecondary,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        
         // Forgot Password Link
         TextButton(
           onPressed: () {
@@ -363,11 +353,9 @@ class _LoginFormState extends State<LoginForm> {
           ),
           child: Text(
             AppStrings.forgotPassword,
-            style: AppTextStyles.labelMedium.copyWith(
+            style: AppTextStyles.labelSmall.copyWith(
               color: AppColors.primary,
               fontWeight: FontWeight.w600,
-              decoration: TextDecoration.underline,
-              decorationColor: AppColors.primary,
             ),
           ),
         ),
@@ -379,11 +367,7 @@ class _LoginFormState extends State<LoginForm> {
     return Row(
       children: [
         const Expanded(
-          child: Divider(
-            color: AppColors.divider,
-            height: 1,
-            thickness: 1,
-          ),
+          child: Divider(color: AppColors.divider, height: 1, thickness: 1),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -396,11 +380,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
         ),
         const Expanded(
-          child: Divider(
-            color: AppColors.divider,
-            height: 1,
-            thickness: 1,
-          ),
+          child: Divider(color: AppColors.divider, height: 1, thickness: 1),
         ),
       ],
     );
@@ -464,13 +444,6 @@ class _LoginFormState extends State<LoginForm> {
         ),
       ),
     );
-  }
-
-  /// Simple email validation
-  bool _isValidEmail(String email) {
-    final pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
-    final regex = RegExp(pattern);
-    return regex.hasMatch(email);
   }
 
   Widget _buildSignUpLink() {
