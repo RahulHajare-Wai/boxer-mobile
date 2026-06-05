@@ -19,9 +19,7 @@ final GetIt sl = GetIt.instance;
 Future<void> initDependencies() async {
   sl.registerSingleton<AuthLocalDatabase>(AuthLocalDatabase());
 
-  sl.registerSingleton<AuthRemoteDataSource>(
-    AuthRemoteDataSourceImpl(),
-  );
+  sl.registerSingleton<AuthRemoteDataSource>(AuthRemoteDataSourceImpl());
   sl.registerSingleton<AuthLocalDataSource>(
     AuthLocalDataSourceImpl(database: sl<AuthLocalDatabase>()),
   );
@@ -39,15 +37,9 @@ Future<void> initDependencies() async {
     ),
   );
 
-  sl.registerSingleton<LoginUseCase>(
-    LoginUseCase(sl<AuthRepository>()),
-  );
-  sl.registerSingleton<RegisterUseCase>(
-    RegisterUseCase(sl<AuthRepository>()),
-  );
-  sl.registerSingleton<LogoutUseCase>(
-    LogoutUseCase(sl<AuthRepository>()),
-  );
+  sl.registerSingleton<LoginUseCase>(LoginUseCase(sl<AuthRepository>()));
+  sl.registerSingleton<RegisterUseCase>(RegisterUseCase(sl<AuthRepository>()));
+  sl.registerSingleton<LogoutUseCase>(LogoutUseCase(sl<AuthRepository>()));
   sl.registerSingleton<GetCachedSessionUseCase>(
     GetCachedSessionUseCase(sl<AuthRepository>()),
   );
@@ -63,4 +55,7 @@ Future<void> initDependencies() async {
 
   sl.registerSingleton<HomeBloc>(HomeBloc());
   sl.registerSingleton<TaskBloc>(TaskBloc());
+
+  // Seed demo account if database is empty
+  await sl<AuthLocalRepository>().seedDemoAccountIfNeeded();
 }

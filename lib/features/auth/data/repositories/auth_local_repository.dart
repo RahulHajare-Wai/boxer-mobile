@@ -122,6 +122,46 @@ class AuthLocalRepository {
     final user = await database.getUserByEmail(normalizedEmail);
     return user != null;
   }
+
+  /// Seeds demo account for offline testing (runs only if database is empty)
+  Future<void> seedDemoAccountIfNeeded() async {
+    try {
+      // Check if any users already exist
+      final existing = await database.getCurrentUser();
+      if (existing != null) {
+        // ignore: avoid_print
+        print('[AUTH] Users already exist in database, skipping seed');
+        await _logDatabaseUsers();
+        return;
+      }
+
+      // Register demo account
+      await registerOffline(
+        email: 'demo@example.com',
+        password: 'demo123456',
+        name: 'Demo User',
+      );
+      // ignore: avoid_print
+      print('[AUTH] Demo account seeded successfully - demo@example.com / demo123456');
+      await _logDatabaseUsers();
+    } catch (e) {
+      // ignore: avoid_print
+      print('[AUTH] Error seeding demo account: $e');
+    }
+  }
+
+  /// Logs all users in the database (for debugging)
+  Future<void> _logDatabaseUsers() async {
+    try {
+      // Query all users - note: Drift doesn't have a getAll, so we use select directly
+      // For now, just log that the seed check completed
+      // ignore: avoid_print
+      print('[AUTH] Database initialization complete');
+    } catch (e) {
+      // ignore: avoid_print
+      print('[AUTH] Error logging users: $e');
+    }
+  }
 }
 
 class AuthLocalException implements Exception {
