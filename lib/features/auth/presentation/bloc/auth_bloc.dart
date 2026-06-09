@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/app_strings.dart';
-import '../../data/repositories/auth_local_repository.dart';
 import '../../domain/usecases/get_cached_session_usecase.dart';
 import '../../domain/usecases/login_usecase.dart';
 import '../../domain/usecases/logout_usecase.dart';
@@ -47,8 +46,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           token: result.token,
         ),
       );
-    } on AuthLocalException catch (e) {
-      emit(AuthError(e.message));
     } catch (e) {
       emit(AuthError(e.toString()));
     }
@@ -73,8 +70,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           token: result.token,
         ),
       );
-    } on AuthLocalException catch (e) {
-      emit(AuthError(e.message));
     } catch (e) {
       emit(AuthError(e.toString()));
     }

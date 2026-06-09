@@ -1,23 +1,18 @@
 import '../../domain/entities/auth_response.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/auth_remote_datasource.dart';
-import 'auth_local_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  AuthRepositoryImpl({
-    required this.remoteDataSource,
-    required this.localRepository,
-  });
+  AuthRepositoryImpl({required this.remoteDataSource});
 
   final AuthRemoteDataSource remoteDataSource;
-  final AuthLocalRepository localRepository;
 
   @override
   Future<AuthResponse> login({
     required String email,
     required String password,
   }) {
-    return localRepository.loginOffline(email: email, password: password);
+    return remoteDataSource.login(email: email, password: password);
   }
 
   @override
@@ -26,7 +21,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required String password,
     required String name,
   }) {
-    return localRepository.registerOffline(
+    return remoteDataSource.register(
       email: email,
       password: password,
       name: name,
@@ -35,11 +30,11 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> logout() {
-    return localRepository.clearSession();
+    return remoteDataSource.logout();
   }
 
   @override
   Future<AuthResponse?> getCachedSession() {
-    return localRepository.getCachedSession();
+    return remoteDataSource.getCachedSession();
   }
 }

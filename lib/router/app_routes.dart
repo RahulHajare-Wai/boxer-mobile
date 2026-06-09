@@ -8,4 +8,5 @@ class AppRoutes {
   static const String home = '/home';
   static const String tasks = '/tasks';
   static const String todo = '/todo';
+  static const String createTodo = '/create-todo';
 }

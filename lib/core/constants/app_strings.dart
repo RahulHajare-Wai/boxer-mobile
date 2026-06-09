@@ -161,4 +161,26 @@ class AppStrings {
   static const String todoDueToday = 'Today';
   static const String todoDueDateBranchVisit = '06/01/2026';
   static const String todoDueTimeToday1030 = 'Due today at 10:30 PM';
+
+  // Create Todo
+  static const String createTodoTitle = 'Create New Todo';
+  static const String createTodoTitleLabel = 'Title';
+  static const String createTodoTitleHint = 'What needs to be done?';
+  static const String createTodoTitleRequired =
+      'Please enter a title for the todo';
+  static const String createTodoSubtitleLabel = 'Description (Optional)';
+  static const String createTodoSubtitleHint = 'Add more details...';
+  static const String createTodoSectionLabel = 'Section';
+  static const String createTodoPriorityLabel = 'Priority';
+  static const String createTodoPriorityNone = 'None';
+  static const String createTodoPriorityRequest = 'Request';
+  static const String createTodoPriorityStoreVisit = 'Store Visit';
+  static const String createTodoPriorityCompliance = 'Compliance';
+  static const String createTodoDueDateLabel = 'Due Date & Time';
+  static const String createTodoSelectDate = 'Select date';
+  static const String createTodoSelectTime = 'Select time';
+  static const String createTodoButtonLabel = 'Create Todo';
+  static const String createTodoSuccessMessage = 'Todo created successfully!';
+  static const String creating = 'Creating...';
+  static const String reset = 'Reset Form';
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/config/app_colors.dart';
-import '../../../../core/constants/app_strings.dart';
+import '../../../../router/app_routes.dart';
 import '../../data/models/todo_model.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_state.dart';
@@ -20,9 +20,7 @@ class _TodoScreenState extends State<TodoScreen> {
   int _selectedStatusIndex = 0;
 
   void _addTodo() {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text(AppStrings.todoAddComingSoon)));
+    Navigator.of(context).pushNamed(AppRoutes.createTodo);
   }
 
   @override
